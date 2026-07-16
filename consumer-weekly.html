@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>消费周报 · 2026 W28（7/6–7/10）</title>
+<style>
+  :root{
+    --bg:#ffffff; --soft:#f6f7f9; --soft2:#eef1f5;
+    --line:#e6e8ec; --line2:#eceef2;
+    --ink:#1a1f2b; --ink2:#3c4453; --muted:#6b7280; --muted2:#9aa1ac;
+    --blue:#2563c9; --blue-soft:#eaf1fc; --blue-dk:#1b4a9c;
+    --up:#d0332b; --up-soft:#fdecea;      /* 涨 红 */
+    --dn:#18863f; --dn-soft:#e7f6ec;      /* 跌 绿 */
+    --amber:#b7791f; --amber-soft:#fdf3e1;
+    --gold:#c9a45a;
+    --purple:#7a4bd0; --purple-soft:#f0e9fb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+    background:var(--soft); color:var(--ink); line-height:1.75; font-size:14px;
+    padding-bottom:50px;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:0 20px}
+
+  /* ── Header ── */
+  header{background:linear-gradient(135deg,#231637 0%,#31245f 50%,#5a3bc9 100%); color:#fff; padding:30px 0 26px; margin-bottom:22px}
+  .h-top{display:flex; align-items:center; gap:12px}
+  .h-mark{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#f5c04a,var(--gold));display:flex;align-items:center;justify-content:center;color:#231637;font-weight:800;font-size:19px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  h1{font-size:25px;font-weight:750;letter-spacing:-.4px}
+  .h-sub{font-size:12px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-top:1px}
+  .h-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.85)}
+  .h-meta .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4);align-self:center}
+  .h-cov{font-size:12px;color:rgba(255,255,255,.72);margin-top:8px}
+
+  /* ── Section head ── */
+  .sec{margin-bottom:30px}
+  .sec-h{display:flex;align-items:center;gap:10px;margin:0 0 16px;padding-bottom:10px;border-bottom:2px solid var(--purple)}
+  .sec-h h2{font-size:20px;font-weight:750;color:var(--ink)}
+  .sec-h .en{font-size:11px;color:var(--muted2);margin-left:auto;letter-spacing:1px;text-transform:uppercase}
+
+  /* ── KPI hero cards ── */
+  .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .kpi{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px;box-shadow:0 1px 2px rgba(0,0,0,.02)}
+  .kpi .k-name{font-size:13px;color:var(--muted);font-weight:500}
+  .kpi .k-num{font-size:38px;font-weight:800;line-height:1.15;margin:6px 0 4px;letter-spacing:-1px}
+  .kpi .k-desc{font-size:12.5px;color:var(--ink2)}
+  .k-up{color:var(--up)} .k-dn{color:var(--dn)} .k-amber{color:var(--amber)} .k-blue{color:var(--blue)}
+
+  /* ── Numbered list ── */
+  .nlist{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+  .nitem{display:flex;gap:12px}
+  .nbadge{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:2px}
+  .ntext{font-size:13.5px;color:var(--ink2);line-height:1.7}
+  .ntext strong{color:var(--ink);font-weight:650}
+
+  /* ── Callouts ── */
+  .call{border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13.5px;line-height:1.75;color:var(--ink2)}
+  .call .lab{font-weight:750;display:block;margin-bottom:4px;font-size:13.5px}
+  .call.key{background:linear-gradient(180deg,#f1edfc,#f9f7ff);border:1px solid #ded3f5;border-left:4px solid var(--purple)}
+  .call.key .lab{color:#5b34a8}
+  .call.diff{background:var(--amber-soft);border:1px solid #f0dcb5;border-left:4px solid var(--amber)}
+  .call.diff .lab{color:var(--amber)}
+  .call.warn{background:var(--up-soft);border:1px solid #f4cfcb;border-left:4px solid var(--up)}
+  .call.warn .lab{color:var(--up)}
+  .call.blue{background:linear-gradient(180deg,#eef4fd,#f7faff);border:1px solid #d3e2f7;border-left:4px solid var(--blue)}
+  .call.blue .lab{color:var(--blue-dk)}
+  .call strong{color:var(--ink)}
+
+  /* ── Charts ── */
+  .chart{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0}
+  .chart .c-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:2px}
+  .chart .c-title .em{color:var(--purple);font-weight:800;margin-right:6px}
+  .bar-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:12.5px}
+  .bar-label{flex:0 0 128px;text-align:right;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar-track{flex:1;display:flex;align-items:center;height:18px;background:linear-gradient(90deg,transparent 49.7%,#d5d9e0 49.7%,#d5d9e0 50.3%,transparent 50.3%)}
+  .bar-half{width:50%;display:flex;align-items:center;height:100%}
+  .bar-half.neg{justify-content:flex-end}
+  .bar-half.pos{justify-content:flex-start}
+  .bar-fill{height:12px;border-radius:3px}
+  .bar-fill.up{background:linear-gradient(90deg,#e8776f,var(--up))}
+  .bar-fill.dn{background:linear-gradient(270deg,#5cbf82,var(--dn))}
+  .bar-val{flex:0 0 62px;font-variant-numeric:tabular-nums;font-weight:700}
+  .c-note{font-size:11.5px;color:var(--muted2);margin-top:12px;line-height:1.6;border-top:1px dashed var(--line2);padding-top:8px}
+  .c-note b{color:var(--muted);font-weight:600}
+
+  /* ── Broker cards ── */
+  .grp-lab{font-size:12px;font-weight:700;color:#fff;background:var(--blue);display:inline-block;padding:3px 12px;border-radius:20px;margin:6px 0 12px}
+  .grp-lab.f{background:var(--purple)}
+  .bcard{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+  .bc-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:3px}
+  .bc-inst{font-size:12px;font-weight:700;color:var(--blue-dk);background:var(--blue-soft);padding:1px 9px;border-radius:4px}
+  .bc-inst.f{color:#5b34a8;background:var(--purple-soft)}
+  .bc-title{font-size:14px;font-weight:700;color:var(--ink)}
+  .bc-meta{font-size:11.5px;color:var(--muted2);margin-bottom:8px}
+  .bc-body{font-size:13px;color:var(--ink2);line-height:1.7}
+  .bc-body ul{list-style:none;padding:0;margin:0}
+  .bc-body li{position:relative;padding:3px 0 3px 15px}
+  .bc-body li::before{content:"";position:absolute;left:2px;top:12px;width:5px;height:5px;border-radius:50%;background:var(--blue)}
+  .bc-body strong{color:var(--ink);font-weight:650}
+
+  /* ── Table ── */
+  .twrap{overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.8px;min-width:640px}
+  thead th{text-align:left;font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:11px 12px;background:var(--soft);border-bottom:1px solid var(--line)}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.up,.up{color:var(--up);font-weight:650} td.dn,.dn{color:var(--dn);font-weight:650} .flat{color:var(--muted)}
+
+  /* ── Flow diagram ── */
+  .flow{margin-top:14px}
+  .flow-layer{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:6px}
+  .flow-cap{font-size:12px;font-weight:700;color:#5b34a8;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+  .flow-cap .tag{background:var(--purple-soft);border-radius:5px;padding:1px 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12.5px;color:var(--ink2);line-height:1.35}
+  .chip b{color:var(--ink);display:block;font-size:12.5px}
+  .chip span{font-size:11px;color:var(--muted)}
+  .chip.up{border-color:#f0ccc9;background:#fdf4f3} .chip.up b{color:var(--up)}
+  .chip.dn{border-color:#c8e6d3;background:#f2faf5} .chip.dn b{color:var(--dn)}
+  .flow-arrow{text-align:center;color:var(--muted2);font-size:12px;margin:2px 0 6px}
+
+  /* ── 深度复盘 prose ── */
+  .deep{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0;font-size:13.5px;line-height:1.9;color:var(--ink2)}
+  .deep h3{font-size:15px;font-weight:750;color:var(--ink);margin:14px 0 6px;display:flex;align-items:center;gap:8px}
+  .deep h3:first-child{margin-top:0}
+  .deep h3 .no{color:var(--purple);font-weight:800}
+  .deep p{margin-bottom:8px}
+  .deep strong{color:var(--ink);font-weight:650}
+
+  footer{text-align:center;font-size:11.5px;color:var(--muted);padding:8px 20px 0;line-height:1.7}
+
+  @media(max-width:720px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .kpi .k-num{font-size:32px}
+    .bar-label{flex-basis:92px}
+    h1{font-size:21px}
+  }
+  @media(max-width:440px){
+    .kpi-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="h-top">
+      <div class="h-mark">消</div>
+      <div>
+        <h1>消费周报 · 板块与产业链</h1>
+        <div class="h-sub">Consumer Weekly · Sector &amp; Value Chain</div>
+      </div>
+    </div>
+    <div class="h-meta">
+      <span>2026 第28周 · 7/6（周一）– 7/10（周五）</span><span class="dot"></span>
+      <span>中证内地消费 −0.22%（跑赢沪深300 105bp）</span><span class="dot"></span>
+      <span>数据源：进门 comein-mcp-all</span>
+    </div>
+    <div class="h-cov">申万一级：食品饮料·家电·汽车·轻工·美护·社服·农林牧渔　｜　港股新消费　｜　海外消费龙头　｜　本报生成于 7/16（周四），「下周关注」部分附本周后验</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ═════ 本周最值得关注的变化 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>本周最值得关注的变化</h2><span class="en">Key Changes · Weekly</span></div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="k-name">中证内地消费 · 周度</div>
+      <div class="k-num k-dn">−0.22%</div>
+      <div class="k-desc">跑赢沪深300 105bp、中证500 254bp</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">申万食品饮料 · 周度</div>
+      <div class="k-num k-up">+0.07%</div>
+      <div class="k-desc">与农牧（+0.33%）为唯二收涨消费板块</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">白酒龙头 · 周度普涨</div>
+      <div class="k-num k-up">+0.7~1.3%</div>
+      <div class="k-desc">老窖 +1.27%、汾酒 +0.96%、茅台 +0.88%</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">蜜雪集团 · 周度</div>
+      <div class="k-num k-dn">−10.21%</div>
+      <div class="k-desc">港股新消费集体回调，拥挤度释放</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">科创50 · 周度（对照）</div>
+      <div class="k-num k-up">+4.52%</div>
+      <div class="k-desc">资金仍聚科技；创业板 −4.41% 剧烈分化</div>
+    </div>
+    <div class="kpi">
+      <div class="k-name">内地消费 · 股息率</div>
+      <div class="k-num k-up">3.53%</div>
+      <div class="k-desc">5Y分位 98%+；PE 5Y分位约 4–10%</div>
+    </div>
+  </div>
+
+  <div class="nlist">
+    <div class="nitem"><div class="nbadge">1</div><div class="ntext"><strong>消费连续第二周相对企稳、绝对微跌：</strong>中证内地消费周度 −0.22%（前一周 +4.28% 大反弹后的缩量整固），显著跑赢沪深300（−1.27%）、中证500（−2.76%）、创业板（−4.41%）；港股通消费周度 −1.07%。经历 6 月中下旬连续两周 −4.03%/−3.66% 的深跌后，消费的周线已连续两周不再创新低。</div></div>
+    <div class="nitem"><div class="nbadge">2</div><div class="ntext"><strong>板块内部防御分层清晰：</strong>周度涨幅序列 = 农牧 +0.33% &gt; 食饮 +0.07% &gt; 家电 −1.92% &gt; 美护 −2.93% &gt; 轻工 −3.67% &gt; 汽车 −4.17% &gt; 社服 −4.68%——越"必选/短久期/高股息"越强，越"可选/顺周期/长久期"越弱，与 6 月以来的防御逻辑一脉相承。</div></div>
+    <div class="nitem"><div class="nbadge">3</div><div class="ntext"><strong>白酒在"报表最差周"实现普涨：</strong>7/10 舍得发布行业首份中报预告（Q2 收入 −30%、转亏）定调出清，但当周白酒龙头集体收红——老窖 +1.27%、汾酒 +0.96%、茅台 +0.88%、五粮液 +0.66%，伴随伊利 +1.14%、燕京 +1.12%。「利空落地 + 批价稳定 + 股息见底」吸引左侧资金入场，是重要的底部行为信号。</div></div>
+    <div class="nitem"><div class="nbadge">4</div><div class="ntext"><strong>港股新消费高位拥挤度集中释放：</strong>蜜雪 −10.21%、农夫山泉 −4.61%、李宁 −3.93%、巨子 −2.33%、泡泡玛特 −1.70%，唯老铺黄金 +2.35% 独强。A 股情绪端同样降温（东鹏 −3.83%、珀莱雅 −3.66%）。主题内部从「普涨」转向「按业绩确定性重新定价」。</div></div>
+    <div class="nitem"><div class="nbadge">5</div><div class="ntext"><strong>顺周期个股先于板块启动：</strong>牧原 +3.36%（猪价底部+成本领先）、比亚迪 +1.73%（价格战预期缓和）、美的 +1.32%（出海主线）逆板块走强，显示资金开始在超跌顺周期里自下而上找 α，而非等待 β 反转。</div></div>
+    <div class="nitem"><div class="nbadge">6</div><div class="ntext"><strong>政策密集催化落地：</strong>商务部等 9 部门支持零售企业发行商业不动产 REITs；发改委「两重」8000 亿项目清单全部下达；云南/晋江推出购房补贴；自然资源部落实土地供应与商品房去库存挂钩机制；「扩大消费十五五规划近期发布」传闻持续发酵。</div></div>
+  </div>
+
+  <div class="call key">
+    <span class="lab">🔑 本周核心判断</span>
+    W28 是一个典型的 <strong>「底部整固周」</strong>：消费在前一周 +4.28% 大反弹后缩量整固、不创新低，全市场则延续「科技独强、其余普跌」的极致分化（科创50 +4.52% vs 创业板 −4.41%）。板块内部完成了两件事——①<strong>白酒在最坏报表落地时普涨</strong>，确认「出清定价充分」；②<strong>港股新消费拥挤度释放</strong>，为主题行情的第二波腾出空间。消费的股息率（5Y 分位 98%+）与 PE（5Y 分位约 4–10%）的极端错位，构成周度级别最重要的定价矛盾。<em>本报告仅客观陈述行情与事实信号，不构成投资建议。</em>
+  </div>
+
+  <!-- 图0 -->
+  <div class="chart">
+    <div class="c-title"><span class="em">图0</span>消费指数 vs 全市场宽基 · 本周涨跌（%）</div>
+    <div style="margin-top:12px">
+      <div class="bar-row"><div class="bar-label">科创50</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:100%"></div></div></div><div class="bar-val up">+4.52</div></div>
+      <div class="bar-row"><div class="bar-label">中证内地消费</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:4.9%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−0.22</div></div>
+      <div class="bar-row"><div class="bar-label">港股通消费</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:23.7%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−1.07</div></div>
+      <div class="bar-row"><div class="bar-label">沪深300</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:28.1%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−1.27</div></div>
+      <div class="bar-row"><div class="bar-label">中证500</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:61.1%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−2.76</div></div>
+      <div class="bar-row"><div class="bar-label">创业板指</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:97.6%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−4.41</div></div>
+    </div>
+    <div class="c-note"><b>数据来源：</b>进门 comein-mcp-all · searchIndexQuotation（周K线，W28 = 7/6–7/10）。<br><b>怎么看：</b>红=涨、绿=跌（A股习惯）。极致分化周——科创独涨、创业板深跌 9 个点的差距为年内罕见；消费虽微跌，但在宽基中排位仅次于科创，防御属性持续兑现。</div>
+  </div>
+
+  <!-- 图0b -->
+  <div class="chart">
+    <div class="c-title"><span class="em">图0b</span>中证内地消费 · 近5周周度涨跌（%）</div>
+    <div style="margin-top:12px">
+      <div class="bar-row"><div class="bar-label">W24（~6/12）</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:12.9%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−0.55</div></div>
+      <div class="bar-row"><div class="bar-label">W25（~6/18）</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:94.2%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−4.03</div></div>
+      <div class="bar-row"><div class="bar-label">W26（~6/26）</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:85.4%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−3.66</div></div>
+      <div class="bar-row"><div class="bar-label">W27（~7/3）</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:100%"></div></div></div><div class="bar-val up">+4.28</div></div>
+      <div class="bar-row"><div class="bar-label">W28（~7/10）</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:5.1%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−0.22</div></div>
+    </div>
+    <div class="c-note"><b>数据来源：</b>进门 comein-mcp-all · searchIndexQuotation 周K线序列。<br><b>怎么看：</b>「两周深跌（−4.03%/−3.66%）→ 一周 V 型反弹（+4.28%）→ 一周缩量整固（−0.22%）」——典型的底部构筑节奏；W28 未回吐 W27 涨幅，多头结构未被破坏。</div>
+  </div>
+</section>
+
+<!-- ═════ 板块周度速览 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>板块周度速览</h2><span class="en">Sector Weekly Snapshot</span></div>
+
+  <div class="chart">
+    <div class="c-title"><span class="em">图1</span>申万一级消费板块 · 本周涨跌（%）</div>
+    <div style="margin-top:12px">
+      <div class="bar-row"><div class="bar-label">农林牧渔</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:7.1%"></div></div></div><div class="bar-val up">+0.33</div></div>
+      <div class="bar-row"><div class="bar-label">食品饮料</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:1.5%"></div></div></div><div class="bar-val up">+0.07</div></div>
+      <div class="bar-row"><div class="bar-label">家用电器</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:41.0%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−1.92</div></div>
+      <div class="bar-row"><div class="bar-label">美容护理</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:62.6%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−2.93</div></div>
+      <div class="bar-row"><div class="bar-label">轻工制造</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:78.4%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−3.67</div></div>
+      <div class="bar-row"><div class="bar-label">汽车</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:89.1%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−4.17</div></div>
+      <div class="bar-row"><div class="bar-label">社会服务</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:100%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−4.68</div></div>
+    </div>
+    <div class="c-note"><b>数据来源：</b>进门 comein-mcp-all · searchIndexQuotation（周K线，W28）。<br><b>怎么看：</b>2 涨 5 跌。必选（农牧/食饮）收涨 vs 可选（社服/汽车/轻工）领跌的剪刀差达 5 个百分点，防御分层达到本轮调整以来最清晰的一周。</div>
+  </div>
+
+  <div class="twrap">
+  <table>
+    <thead><tr><th>板块</th><th class="num">周收盘</th><th class="num">本周</th><th class="num">周振幅</th><th>周度关键驱动</th></tr></thead>
+    <tbody>
+      <tr><td>申万农林牧渔</td><td class="num">2,348.25</td><td class="num up">+0.33%</td><td class="num">5.03%</td><td>牧原 +3.36% 领涨；猪价底部+去产能预期，防御+超跌双属性</td></tr>
+      <tr><td>申万食品饮料</td><td class="num">13,217.34</td><td class="num up">+0.07%</td><td class="num">3.79%</td><td>白酒普涨（老窖+1.27%/汾酒+0.96%/茅台+0.88%）；舍得预告落地=利空出尽</td></tr>
+      <tr><td>申万家用电器</td><td class="num">8,456.03</td><td class="num dn">−1.92%</td><td class="num">4.03%</td><td>美的 +1.32% 独强 vs 板块回调；出海 α 与内销 β 分化</td></tr>
+      <tr><td>申万美容护理</td><td class="num">3,336.34</td><td class="num dn">−2.93%</td><td class="num">5.69%</td><td>珀莱雅 −3.66%；618 透支后渠道数据真空期</td></tr>
+      <tr><td>申万轻工制造</td><td class="num">2,062.11</td><td class="num dn">−3.67%</td><td class="num">6.78%</td><td>地产链压制延续；出口家居订单观望</td></tr>
+      <tr><td>申万汽车</td><td class="num">6,654.49</td><td class="num dn">−4.17%</td><td class="num">8.54%</td><td>板块深跌但比亚迪 +1.73% 逆势——整车龙头与零部件分化</td></tr>
+      <tr><td>申万社会服务</td><td class="num">7,058.49</td><td class="num dn">−4.68%</td><td class="num">8.64%</td><td>暑期数据待验证，免税/OTA/餐饮杀估值最深</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ═════ 个股周度涨跌 TOP ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>消费池周度涨跌</h2><span class="en">Weekly Movers · A+H</span></div>
+
+  <div class="twrap" style="margin-bottom:14px">
+  <table>
+    <thead><tr><th>周度收涨</th><th class="num">周收盘</th><th class="num">本周</th><th>周度逻辑</th></tr></thead>
+    <tbody>
+      <tr><td>牧原股份 · 生猪</td><td class="num">38.14</td><td class="num up">+3.36%</td><td>猪价底部+成本领先，消费池周度最强</td></tr>
+      <tr><td>老铺黄金 · 港饰品</td><td class="num">391.20</td><td class="num up">+2.35%</td><td>金价+品牌溢价，港新消费中唯一收涨</td></tr>
+      <tr><td>比亚迪 · 汽车</td><td class="num">90.00</td><td class="num up">+1.73%</td><td>价格战预期缓和，逆板块（−4.17%）走强</td></tr>
+      <tr><td>美的集团 · 家电</td><td class="num">78.99</td><td class="num up">+1.32%</td><td>出海+商业空调 α，逆板块（−1.92%）走强</td></tr>
+      <tr><td>泸州老窖 · 白酒</td><td class="num">78.18</td><td class="num up">+1.27%</td><td>低估值+股息，报表利空落地后修复</td></tr>
+      <tr><td>伊利股份 · 乳品</td><td class="num">24.88</td><td class="num up">+1.14%</td><td>液奶转正预期+原奶周期底部</td></tr>
+      <tr><td>燕京啤酒 · 啤酒</td><td class="num">10.85</td><td class="num up">+1.12%</td><td>旺季动销+成本红利，周内一度冲高 8%</td></tr>
+      <tr><td>山西汾酒 · 白酒</td><td class="num">110.30</td><td class="num up">+0.96%</td><td>批价稳健+全国化韧性</td></tr>
+      <tr><td>贵州茅台 · 白酒</td><td class="num">1,204.98</td><td class="num up">+0.88%</td><td>批价 1600–1700 淡季未破位，红利资金增配</td></tr>
+      <tr><td>五粮液 · 白酒</td><td class="num">73.69</td><td class="num up">+0.66%</td><td>Q2 低基数弹性预期开始被定价</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="twrap">
+  <table>
+    <thead><tr><th>周度收跌</th><th class="num">周收盘</th><th class="num">本周</th><th>周度逻辑</th></tr></thead>
+    <tbody>
+      <tr><td>蜜雪集团 · 港茶饮</td><td class="num">205.80</td><td class="num dn">−10.21%</td><td>高位获利了结+门店增速环比放缓担忧，主题拥挤度释放</td></tr>
+      <tr><td>农夫山泉 · 港饮料</td><td class="num">39.74</td><td class="num dn">−4.61%</td><td>包装水竞争+高基数，新消费回调重灾区</td></tr>
+      <tr><td>李宁 · 港运动</td><td class="num">14.67</td><td class="num dn">−3.93%</td><td>Citi/德银下修 2Q 流水（−LSD~0%），运动服饰全球弱势共振</td></tr>
+      <tr><td>东鹏饮料 · 软饮</td><td class="num">121.51</td><td class="num dn">−3.83%</td><td>Q2 增速放缓预期（天气+竞争+费投加大）</td></tr>
+      <tr><td>珀莱雅 · 美护</td><td class="num">57.72</td><td class="num dn">−3.66%</td><td>618 后数据真空+抖音渠道分化</td></tr>
+      <tr><td>巨子生物 · 港美护</td><td class="num">26.02</td><td class="num dn">−2.33%</td><td>随板块回调，但相对抗跌（下周即 +17.6% 反弹）</td></tr>
+      <tr><td>泡泡玛特 · 港潮玩</td><td class="num">150.70</td><td class="num dn">−1.70%</td><td>高位震荡，IP 出海逻辑未破坏</td></tr>
+      <tr><td>海天味业 · 调味品</td><td class="num">33.72</td><td class="num dn">−0.85%</td><td>微跌整固，Q2 收入 +5% 预期稳定</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="call warn">
+    <span class="lab">⚠️ 周度结构信号</span>
+    本周涨跌结构与前几周发生 <strong>关键反转</strong>：涨幅榜由「港股新消费主题」换成了 <strong>「A 股白酒/乳品/啤酒等低估值必选 + 牧原/比亚迪/美的等超跌顺周期龙头」</strong>；而跌幅榜恰恰是前期最拥挤的新消费标的（蜜雪/农夫/东鹏/珀莱雅）。这不是逻辑的否定，而是 <strong>主题内部的高低切换</strong>——事后看（7/13–7/16），回调最深的巨子/蜜雪/泡泡玛特正是随后反弹最猛的标的。
+  </div>
+</section>
+
+<!-- ═════ 海外消费龙头 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>海外消费龙头 · 周度</h2><span class="en">Global Leaders Weekly</span></div>
+
+  <div class="chart">
+    <div class="c-title"><span class="em">图2</span>海外消费龙头 · 本周涨跌（%，7/6–7/10 美股）</div>
+    <div style="margin-top:12px">
+      <div class="bar-row"><div class="bar-label">星巴克 SBUX</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:30.3%"></div></div></div><div class="bar-val up">+1.67</div></div>
+      <div class="bar-row"><div class="bar-label">Lululemon</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:12.7%"></div></div></div><div class="bar-val up">+0.70</div></div>
+      <div class="bar-row"><div class="bar-label">耐克 NKE</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:11.6%"></div></div></div><div class="bar-val up">+0.64</div></div>
+      <div class="bar-row"><div class="bar-label">可口可乐 KO</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:14.0%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−0.77</div></div>
+      <div class="bar-row"><div class="bar-label">奈飞 NFLX</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:100%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−5.51</div></div>
+    </div>
+    <div class="c-note"><b>数据来源：</b>进门 comein-mcp-all · get_stock_kline（周K线，周期截至 7/10 收盘）。<br><b>怎么看：</b>与 A/H 呈镜像——美股防御龙头（星巴克 +1.67%）延续强势，但深度超跌的运动服饰（耐克/Lululemon）本周止跌反弹，而前期抗跌的奈飞 −5.51% 补跌；「杀估值→企稳」的轮动次序对国内运动服饰与新消费有映射意义。</div>
+  </div>
+
+  <div class="call diff">
+    <span class="lab">💡 全球映射</span>
+    <strong>防御共振依旧</strong>（星巴克 YTD +26%+、与茅台/海天同构），但本周出现了值得注意的新信号：<strong>全球运动服饰在极端超跌后同步止跌</strong>（耐克/Lululemon 周度转红 vs 李宁 −3.93% 仍未止跌）——若美股运动服饰确认见底，李宁/安踏的下修压力或已接近充分定价；奈飞补跌则提示海外「情绪消费」的高估值同样在消化，A/H 新消费的回调属全球现象而非独立恶化。
+  </div>
+</section>
+
+<!-- ═════ 机构观点 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>机构观点 · 内资 / 外资研报</h2><span class="en">Broker Views · Weekly</span></div>
+
+  <div class="grp-lab f">外资券商</div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst f">Citi 花旗</span><span class="bc-title">安踏 (2020.HK) / 李宁 (2331.HK) · 2Q26 Preview</span></div>
+    <div class="bc-meta">Xiaopo Wei / Vincent Young · 2026-07-01</div>
+    <div class="bc-body"><ul>
+      <li>安踏为中国运动服饰 <strong>Top Buy</strong>（TP HK$108.8，20x 2026E PE）；2Q26 FILA/Anta +LSD、其他品牌 +20–30%；Puma 收购预计 4Q26 完成。</li>
+      <li>李宁 2Q26 核心品牌流水下修至 <strong>−LSD~0% YoY</strong>（vs 1Q +MSD），TP HK$22.8 维持 Buy；本周李宁 −3.93% 反映该下修。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst f">Deutsche Bank 德银</span><span class="bc-title">李宁 · 2Q Preview: Retail Sales Likely to Fall</span></div>
+    <div class="bc-meta">2026-07-05</div>
+    <div class="bc-body"><ul>
+      <li><strong>维持 Hold</strong>；2Q26 零售流水或转负，<strong>FY26 净利润较市场共识低 9%</strong>；下调 2026 收入增速至 4.9%。</li>
+      <li>李宁 7 月中旬 2Q 运营更新为板块核心验证点。</li>
+    </ul></div>
+  </div>
+
+  <div class="grp-lab">内资券商</div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">国泰海通</span><span class="bc-title">食品饮料双周报《底部显现，大众品复苏可期》</span></div>
+    <div class="bc-meta">訾猛 / 颜慧菁 / 徐洋 / 李美仪 · 2026-07-12</div>
+    <div class="bc-body"><ul>
+      <li><strong>白酒加速出清</strong>：舍得 26Q2 收入 −30% 转亏为行业定调；酒厂理性、厂商关系和谐、库存绝对量稳中有降。</li>
+      <li>关注 7/2 传出的「扩大消费十五五规划近期发布」，若落地有望带动白酒估值修复；推荐率先出清（迎驾/今世缘/金徽/古井）+ 价格弹性（茅五泸汾）。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">浙商证券</span><span class="bc-title">大众品 26Q2 业绩前瞻《把握业绩催化和底部价值两条主线》</span></div>
+    <div class="bc-meta">张潇倩 等 · 2026-07-12</div>
+    <div class="bc-body"><ul>
+      <li>Q2 量贩零食高景气（万辰收入 +50%/利润 +131%E）、乳品稳健（伊利 +3%/新乳业 +5%/妙可 +26%E）、调味品龙头确定（海天 +5%/中炬 +20%E）、饮料啤酒承压（东鹏增速放缓）。</li>
+      <li>两条主线：超跌赛道龙头（盐津/海天/伊利/安井）+ Q2 业绩催化（万辰/鸣鸣/中炬/妙可/百润）。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">申万宏源</span><span class="bc-title">七谈白酒进入战略布局期《底部特征显现》</span></div>
+    <div class="bc-meta">吕昌 · 路演电话会</div>
+    <div class="bc-body"><ul>
+      <li><strong>2026 动销/开瓶率先修复、报表改善滞后到 2027</strong>；茅台例外——调整快、报表波动小，飞天批价 1600–1700 稳定、动销正常。</li>
+      <li>茅台半年度工作总结确认改革方向：需求主体从政商务转向大众/高净值消费，产品回归金字塔结构+线上线下立体渠道。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">财通证券</span><span class="bc-title">消费行业周度更新 · 白酒批价库存跟踪</span></div>
+    <div class="bc-meta">吴文德 · 渠道电话会</div>
+    <div class="bc-body"><ul>
+      <li>Q2 商务宴席仍疲软，除茅台/金徽/迎驾/今世缘外整体延续调整（舍得/水井坊亏损）；<strong>Q3 起低基数+中秋备货，报表有望逐步转正</strong>。</li>
+      <li>估值历史低位：除茅台 ~18x 外头部普遍 10–15x、股息率 4–5%+；渠道批价管理与库存去化持续向好。</li>
+    </ul></div>
+  </div>
+
+  <div class="bcard">
+    <div class="bc-top"><span class="bc-inst">中信证券 / 长江证券</span><span class="bc-title">再平衡下的消费配置 · 6月消费数据解读</span></div>
+    <div class="bc-meta">蒋祎 / 陈硕旸 · 联合电话会</div>
+    <div class="bc-body"><ul>
+      <li>中信：618 白酒刷单/套补贴明显减少、线上价稳未冲击线下批价，<strong>库存于 Q2 末实质性改善</strong>；配置转向「销售稳健+库存合理」。</li>
+      <li>长江：基酒 99.83（环比 −0.17%）、行业处主动去库存摸底期；本轮酒企控盘能力和反应速度强于以往，批价短波动后逐步见底；沿「份额集中+消费升级」配置。</li>
+    </ul></div>
+  </div>
+
+  <div class="call diff">
+    <span class="lab">💡 本周预期差</span>
+    内外资的分歧集中在 <strong>「可选消费的下修是否已到尾声」</strong>：外资仍在下修港股运动服饰（李宁 FY26 低于共识 9%），内资则已整体转向「底部布局」叙事（战略布局期/底部显现/阶段性反弹窗口）。本周行情站在了内资一边——白酒普涨、下修最狠的新消费标的率先回调出空间。<strong>关键验证点：李宁 7 月中旬 2Q 运营更新与 7 月下旬起的白酒中报</strong>——若「报表差但不再低于下修后的预期」，则内资的底部叙事将获得实质支撑。
+  </div>
+</section>
+
+<!-- ═════ 宏观观察 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>宏观观察 · 周度</h2><span class="en">Macro Monitor Weekly</span></div>
+
+  <div class="call blue">
+    <span class="lab">🔑 政策面 · 一周三箭</span>
+    ①<strong>零售业创新发展意见</strong>（商务部等 9 部门）：支持零售主体发行资产支持证券与商业不动产 REITs，百货/购物中心/社区商业/农贸市场纳入基础设施 REITs 发行范围——消费基础设施的融资通道系统性打开；②<strong>「两重」项目全部下达</strong>：8000 亿支持 1417 个重大项目、第三批 1935 亿超长期特别国债落地；③<strong>「扩大消费十五五规划近期发布」</strong>传闻发酵——若落地将是消费板块流动性与估值的核心催化。宏观底色：6 月 CPI 同比 +1.0%、制造业 PMI 50.3，顺价窗口延续。
+  </div>
+
+  <div class="chart">
+    <div class="c-title"><span class="em">图3</span>地产高频 · 第28周（7/4–7/10）单周与累计同比（%）</div>
+    <div style="margin-top:12px">
+      <div class="bar-row"><div class="bar-label">30城新房·单周同比</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:100%"></div></div></div><div class="bar-val up">+12.9</div></div>
+      <div class="bar-row"><div class="bar-label">15城二手·单周同比</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:54.3%"></div></div></div><div class="bar-val up">+7.0</div></div>
+      <div class="bar-row"><div class="bar-label">15城二手·累计同比</div><div class="bar-track"><div class="bar-half neg"></div><div class="bar-half pos"><div class="bar-fill up" style="width:8.5%"></div></div></div><div class="bar-val up">+1.1</div></div>
+      <div class="bar-row"><div class="bar-label">30城新房·累计同比</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:55.0%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−7.1</div></div>
+      <div class="bar-row"><div class="bar-label">冰山100·周同比</div><div class="bar-track"><div class="bar-half neg"><div class="bar-fill dn" style="width:79.1%"></div></div><div class="bar-half pos"></div></div><div class="bar-val dn">−10.2</div></div>
+    </div>
+    <div class="c-note"><b>数据来源：</b>进门 comein-mcp-all · 开源证券《房地产行业周报》（第28周 7/4–7/10）；财通口径 36 城新房单周同比 +0.7%、15 城二手 +9.5%；国盛口径新房环比 −45.6%（7 月淡季环比回落）。<br><b>怎么看：</b>网签口径单周同比转正主要受低基数与结构影响，环比进入 7 月淡季回落属季节性；二手房同比连续三个月正增是最扎实的信号，价格端（冰山100 −10.2%）仍在寻底。</div>
+  </div>
+
+  <div class="call diff">
+    <span class="lab">💡 地产一周综述 · 量稳价寻底 + 政策连发</span>
+    <strong>量：</strong>二手房韧性强于新房（周同比 +7~9.5% vs 新房分口径 +0.7~12.9%），挂牌量压力弱于去年同期（国金：从累库转去库）；<strong>价：</strong>6 月 70 城新房同比 −3.5%（收窄）、二手 −5.6%（收窄），北上广深二手环比全涨，但周频冰山100 仍 −10.2%；<strong>土地：</strong>百城单周土地成交建面同比 +3%、溢价率（4 周移动平均）10.4%，保利 26.68% 溢价竞得杭州萧山世纪城地块（楼面价 4.8 万/平）——核心城市补货热度不减；<strong>政策：</strong>云南/晋江购房补贴（最高 5 万/套）、自然资源部土地供应与去库存挂钩、房企信用债单周净融资转正（+11.55 亿）。对消费的含义：地产量端筑底利好后周期（家电/家居）情绪，但价格未稳前，地产链仍是消费顺周期的最大掣肘。
+  </div>
+
+  <div class="call warn">
+    <span class="lab">⚠️ 汇率 / 关税（定性跟踪）</span>
+    人民币汇率 comein 结构化指标库暂无实时数值，以研报定性跟踪；本周关税端无重大边际变化（IEEPA→232/122 条款时间线维持观察），出海链（美的/安克/家居）成本与订单影响中性。安琪酵母纪要提示：<strong>霍尔木兹海峡扰动消退、海运运费与运输保险成本大幅回落</strong>——出海消费企业的物流成本压力在边际缓解。
+  </div>
+</section>
+
+<!-- ═════ 本周深度复盘 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>本周深度复盘</h2><span class="en">Weekly Deep Dive</span></div>
+
+  <div class="deep">
+    <h3><span class="no">一、</span>市场结构：一次「压力测试」下的消费成色检验</h3>
+    <p>W28 的全市场环境近乎为消费板块量身定做了一场压力测试：科创50 +4.52% 与创业板 −4.41% 的极致分化意味着增量资金仍在科技内部博弈，消费得不到任何风格红利；宽基普跌又同时施加了 β 压力。在这样的双重逆风下，中证内地消费仅 −0.22%、食饮/农牧收涨、白酒龙头集体收红——<strong>消费用「无人喝彩时的抗跌」证明了底部的真实性</strong>。尤其值得注意的是量价结构：内地消费周成交额 2,964 亿元，较前一周（3,482 亿）缩量 15%，缩量整固而非放量出货，多头结构未受损伤。</p>
+    <h3><span class="no">二、</span>基本面：「报表最差」与「现实企稳」的错位是最大的 α 来源</h3>
+    <p>本周基本面信息高度浓缩为一个矛盾：<strong>报表端最坏的消息正在落地</strong>（舍得 Q2 收入 −30% 转亏、外资继续下修李宁、老窖/汾酒 Q2 预计双位数下滑），<strong>而现实端的高频信号在悄悄改善</strong>——飞天批价 1600–1700 淡季未破位、618 线上酒价稳定未冲击线下、经销商库存持续去化、CPI 连续回升至 +1.0%、二手房成交连续三个月正增。历史经验表明，「报表触底晚于现实触底」的错位期正是左侧定价的黄金窗口，本周白酒在利空落地时普涨，说明聪明资金已开始按这个剧本执行。风险同样明确：若 7 月下旬中报披露低于「下修后的预期」，或中秋备货不及预期，错位逻辑将被推迟。</p>
+    <h3><span class="no">三、</span>资金行为：主题高低切换完成，第二波的弹药已经就位</h3>
+    <p>港股新消费的周度回调（蜜雪 −10.2%、农夫 −4.6%）表面是坏消息，实质是主题行情的「中场休息」：拥挤度释放、获利盘清洗、筹码换手——<strong>事后看（7/13–7/16 本周），回调最深的标的恰恰反弹最猛</strong>（巨子随后一周 +17.6%、蜜雪 +11.0%、泡泡玛特 +11.3%）。同时，牧原/比亚迪/美的逆板块走强表明资金开始在超跌顺周期中自下而上布局个股 α。两条线索汇合指向同一个判断：消费内部的赚钱效应正在从「单一主题」扩散为「多线并进」，这通常是板块级别行情的前奏，而非尾声。</p>
+    <h3><span class="no">四、</span>估值锚：股息率分位 98% vs PE 分位 4–10% 的极端错位</h3>
+    <p>中证内地消费股息率 3.53%（5Y 分位 98%+）与 PE（5Y 分位约 4–10%）的组合，意味着市场已把消费当作「类债资产」定价、几乎不给成长期权付费。头部酒企股息率普遍 4–5%+、PE 10–15 倍，在无风险利率下行的环境中，这个估值结构的下行风险有限、而任何需求侧的边际改善（政策/中秋/低基数转正）都构成向上期权。这是周度级别最值得记录的定价事实。</p>
+  </div>
+
+  <div class="call key">
+    <span class="lab">🔑 下周关注（生成日 7/16 后验注记）</span>
+    ①<strong>白酒中报窗口开启</strong>（7 月下旬起茅五泸汾/今世缘/迎驾陆续披露，验证「出清充分」叙事）；②<strong>李宁 2Q 运营更新</strong>（7 月中旬，运动服饰全球止跌能否传导至 A/H）；③<strong>政治局会议（7 月底）与「扩大消费十五五规划」</strong>；④<strong>中秋备货启动</strong>（8 月起渠道打款数据）。<br>
+    <em>后验注记：截至本报生成日（7/16 周四收盘），上述判断已获部分验证——本周（W29 至周四）中证内地消费 +3.35%、白酒近一周汾酒 +13.4%/老窖 +12.4%、港股新消费全面反弹（泡泡玛特 7/16 单日 +6.87%），W28 的「底部整固」确认为 W29 反弹的起点。</em>
+  </div>
+</section>
+
+<!-- ═════ 全景图谱 ═════ -->
+<section class="sec">
+  <div class="sec-h"><h2>消费板块全景图谱 · 周度</h2><span class="en">Consumer Map Weekly</span></div>
+  <div class="flow">
+    <div class="flow-layer">
+      <div class="flow-cap"><span class="tag">宏观 / 政策端</span>一周政策与数据</div>
+      <div class="chips">
+        <div class="chip"><b>6月 CPI +1.0%</b><span>顺价窗口延续</span></div>
+        <div class="chip"><b>零售REITs新政</b><span>9部门·消费基础设施</span></div>
+        <div class="chip"><b>「两重」8000亿落地</b><span>1417个重大项目</span></div>
+        <div class="chip"><b>扩消费十五五规划</b><span>传闻发酵中</span></div>
+        <div class="chip"><b>二手房连3月正增</b><span>购房补贴多地加码</span></div>
+      </div>
+    </div>
+    <div class="flow-arrow">▼ 传导至消费板块 β</div>
+    <div class="flow-layer">
+      <div class="flow-cap"><span class="tag">板块层 β</span>申万一级消费（本周 2 涨 5 跌）</div>
+      <div class="chips">
+        <div class="chip up"><b>农林牧渔 +0.33%</b><span>猪价底部</span></div>
+        <div class="chip up"><b>食品饮料 +0.07%</b><span>白酒利空出尽</span></div>
+        <div class="chip dn"><b>家电 −1.92%</b><span>美的独强</span></div>
+        <div class="chip dn"><b>美护 −2.93%</b><span>数据真空期</span></div>
+        <div class="chip dn"><b>轻工 −3.67%</b><span>地产链压制</span></div>
+        <div class="chip dn"><b>汽车 −4.17%</b><span>比亚迪逆势</span></div>
+        <div class="chip dn"><b>社服 −4.68%</b><span>暑期待验证</span></div>
+      </div>
+    </div>
+    <div class="flow-arrow">▼ 收敛至龙头 α</div>
+    <div class="flow-layer">
+      <div class="flow-cap"><span class="tag">个股层 α</span>低估值+超跌龙头接棒</div>
+      <div class="chips">
+        <div class="chip up"><b>牧原 +3.36%</b><span>成本领先</span></div>
+        <div class="chip up"><b>老铺黄金 +2.35%</b><span>金价+品牌</span></div>
+        <div class="chip up"><b>比亚迪 +1.73%</b><span>逆板块</span></div>
+        <div class="chip up"><b>美的 +1.32%</b><span>出海α</span></div>
+        <div class="chip up"><b>老窖 +1.27%</b><span>股息+出清</span></div>
+        <div class="chip up"><b>茅台 +0.88%</b><span>红利增配</span></div>
+        <div class="chip dn"><b>蜜雪 −10.21%</b><span>拥挤度释放</span></div>
+      </div>
+    </div>
+    <div class="flow-arrow">▼ 催化与跟踪</div>
+    <div class="flow-layer">
+      <div class="flow-cap"><span class="tag">催化 / 跟踪</span>下周及月内线索</div>
+      <div class="chips">
+        <div class="chip"><b>白酒中报窗口</b><span>7月下旬起密集披露</span></div>
+        <div class="chip"><b>李宁 2Q 更新</b><span>7月中旬·全球服饰止跌验证</span></div>
+        <div class="chip"><b>政治局会议</b><span>7月底·政策定调</span></div>
+        <div class="chip"><b>中秋备货</b><span>8月起渠道打款</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p>统计区间：2026 第28周（7/6–7/10 收盘，美股同周期）· 全部周K线、白酒批价渠道纪要、内外资研报、CPI/PMI、地产高频均经 <b>进门 comein-mcp-all</b> 实时取数核对（searchIndexQuotation 周K线 / get_stock_kline / searchDomesticReports / searchForeignReports / searchRoadshowSummary / indicatorDataRetrieve / research_query）· 本报生成于 2026-07-16</p>
+  <p>本报告仅供个人研究参考，不构成投资建议</p>
+</footer>
+
+</body>
+</html>
